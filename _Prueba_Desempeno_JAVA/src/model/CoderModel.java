@@ -24,7 +24,7 @@ public class CoderModel implements CRUD {
 
         try {
 
-            String sql = "INSERT INTO coder (nombre,apellido,documento,cohorte,cv,clan) values (?,?,?,?,?,?);";
+            String sql = "INSERT INTO coder (nombreCoder,apellido,documento,cohorte,cv,clan) values (?,?,?,?,?,?);";
 
             PreparedStatement objPrepare = objConnection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 
@@ -72,7 +72,7 @@ public class CoderModel implements CRUD {
             while (objResult.next()) {
                 Coder objCoder = new Coder();
                 objCoder.setId_coder(objResult.getInt("id_coder"));
-                objCoder.setNombre(objResult.getString("nombre"));
+                objCoder.setNombre(objResult.getString("nombreCoder"));
                 objCoder.setApellido(objResult.getString("apellido"));
                 objCoder.setDocumento(objResult.getString("documento"));
                 objCoder.setCohorte(objResult.getString("cohorte"));
@@ -102,7 +102,7 @@ public class CoderModel implements CRUD {
 
         try {
 
-            String sql = "UPDATE coder SET nombre = ?, apellido = ?, documento = ?, cohorte = ?, cv = ?, clan = ? WHERE id_coder = ?;";
+            String sql = "UPDATE coder SET nombreCoder = ?, apellido = ?, documento = ?, cohorte = ?, cv = ?, clan = ? WHERE id_coder = ?;";
 
             PreparedStatement objPrepare = objConnection.prepareStatement(sql);
 
@@ -177,7 +177,7 @@ public class CoderModel implements CRUD {
 
             if (objResult.next()) {
                 objCoder = new Coder();
-                objCoder.setNombre(objResult.getString("nombre"));
+                objCoder.setNombre(objResult.getString("nombreCoder"));
                 objCoder.setApellido(objResult.getString("apellido"));
                 objCoder.setDocumento(objResult.getString("documento"));
                 objCoder.setCohorte(objResult.getString("cohorte"));

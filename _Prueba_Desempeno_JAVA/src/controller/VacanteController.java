@@ -66,6 +66,21 @@ public class VacanteController {
         return listVacantes;
     }
 
+    public static String getAllStringActivas() {
+
+        VacanteModel objModel = new VacanteModel();
+
+        String listVacantes = "LISTA DE VACANTES \n";
+
+        for (Object vacante : objModel.findAll()) {
+            Vacante objVacante = (Vacante) vacante;
+            if (objVacante.getEstado().equals("ACTIVA")){
+                listVacantes += objVacante.toString() + "\n";
+            }
+        }
+            return listVacantes;
+    }
+
     public static void update() {
 
         VacanteModel objVacanteModel = new VacanteModel();

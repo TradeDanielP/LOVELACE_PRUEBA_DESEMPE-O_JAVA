@@ -21,11 +21,15 @@ public class ContratacionController {
         CoderModel objCoderModel = new CoderModel();
         VacanteModel objVacanteModel = new VacanteModel();
 
-        String listVacantes = VacanteController.getAllString();
+        String listVacantes = VacanteController.getAllStringActivas();
         String listCoders = CoderController.getAllString();
 
-        int idVacante = Integer.parseInt(JOptionPane.showInputDialog(listVacantes + "\n Ingresa el ID de la Vacante a la que desea asignar esta contratacion"));
-        int idCoder = Integer.parseInt(JOptionPane.showInputDialog(listCoders+"\n Ingresa el ID del Coder a quien va a contratar"));
+        if(listVacantes.equals("LISTA DE VACANTES \n")){
+            JOptionPane.showMessageDialog(null,"No hay ninguna Vacante Activa \n");
+        } else {
+
+            int idVacante = Integer.parseInt(JOptionPane.showInputDialog(listVacantes + "\n Ingresa el ID de la Vacante a la que desea asignar esta contratacion"));
+            int idCoder = Integer.parseInt(JOptionPane.showInputDialog(listCoders+"\n Ingresa el ID del Coder a quien va a contratar"));
             Coder objCoder = objCoderModel.findById(idCoder);
             Vacante objVacante = objVacanteModel.findById(idVacante);
             if(objCoder.getCv().equalsIgnoreCase(objVacante.getTecnologia())){
@@ -37,14 +41,18 @@ public class ContratacionController {
                 objContratacion.setIdCoder(idCoder);
                 objContratacion.setEstado(estado);
                 objContratacion.setSalario(salario);
+
+                String estadoVacante = "INACTIVA";
+                objVacante.setEstado(estadoVacante);
+                objVacanteModel.update(objVacante);
+
                 objContratacion = (Contratacion) objContratacionModel.insert(objContratacion);
 
-                JOptionPane.showMessageDialog(null, objContratacion.toString());
+                JOptionPane.showMessageDialog(null, objContratacionModel.findNewContratacion(objContratacion.getId_contratacion()));
             } else {
                 JOptionPane.showMessageDialog(null,"Este Coder No tiene la Tecnologia requerida para esta Vacante");
             }
-
-
+        }
     }
 
 

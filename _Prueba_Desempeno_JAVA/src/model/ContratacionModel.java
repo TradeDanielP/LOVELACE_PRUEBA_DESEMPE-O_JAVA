@@ -3,7 +3,9 @@ package model;
 import controller.VacanteController;
 import database.CRUD;
 import database.ConfigDB;
+import entity.Coder;
 import entity.Contratacion;
+import entity.Empresa;
 import entity.Vacante;
 
 import javax.swing.*;
@@ -190,6 +192,64 @@ public class ContratacionModel implements CRUD {
         ConfigDB.closeConnection();
 
         return objContratacion;
+    }
+
+    public String findNewContratacion(int id) {
+
+        String contratacion = "";
+
+        Connection objConnection = ConfigDB.openConnection();
+
+        try {
+
+            String sql = "select vacante.titulo,vacante.descripcion,empresa.nombre,empresa.ubicacion,coder.nombreCoder,coder.apellido,coder.documento,coder.cv,contratacion.salario \n" +
+                    "from contratacion \n" +
+                    "inner join vacante on vacante.id_vacante = contratacion.idVacante\n" +
+                    "inner join empresa on empresa.id_empresa = vacante.idEmpresa\n" +
+                    "inner join coder on coder.id_coder = contratacion.idCoder\n" +
+                    "where id_contratacion = ?;";
+
+            PreparedStatement objPrepare = objConnection.prepareStatement(sql);
+
+            objPrepare.setInt(1, id);
+
+
+            ResultSet objResult = objPrepare.executeQuery();
+
+            while (objResult.next()) {
+                Vacante objVacante = new Vacante();
+                Empresa objEmpresa = new Empresa();
+                Coder objCoder = new Coder();
+                Contratacion objContratacion = new Contratacion();
+
+                objVacante.setTitulo(objResult.getString("titulo"));
+                objVacante.setDescripcion(objResult.getString("descripcion"));
+                objEmpresa.setNombre(objResult.getString("nombre"));
+                objEmpresa.setUbicacion(objResult.getString("ubicacion"));
+                objCoder.setNombre(objResult.getString("nombreCoder"));
+                objCoder.setApellido(objResult.getString("apellido"));
+                objCoder.setDocumento(objResult.getString("documento"));
+                objCoder.setCv(objResult.getString("cv"));
+                objContratacion.setSalario(objResult.getDouble("salario"));
+
+                contratacion =
+                        "Vacante: " + objVacante.getTitulo() + "\n" +
+                        "Descripcion: "+ objVacante.getDescripcion() + "\n" +
+                        "Empresa: " + objEmpresa.getNombre() + "\n" +
+                        "Ubicacion: " + objEmpresa.getUbicacion() + "\n" +
+                        "Nombre del Coder: " + objCoder.getNombre() + " " + objCoder.getApellido() + "\n" +
+                        "Documento: "+ objCoder.getDocumento() + "\n" +
+                        "Especialidad: " + objCoder.getCv() + "\n" +
+                        "Salario: "+ objContratacion.getSalario();
+            }
+
+        } catch (SQLException error) {
+            JOptionPane.showMessageDialog(null, error.getMessage());
+        }
+
+        ConfigDB.closeConnection();
+
+        return contratacion;
     }
 
 }
