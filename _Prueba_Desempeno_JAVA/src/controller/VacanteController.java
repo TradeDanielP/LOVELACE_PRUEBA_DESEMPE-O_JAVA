@@ -90,13 +90,14 @@ public class VacanteController {
             String duracion = JOptionPane.showInputDialog(null, "Modifica la duracion de la vacante", objVacante.getDuracion());
             confirm = JOptionPane.showConfirmDialog(null,"Quieres cambiar el estado de la vacante?");
             if (confirm == 0){
+                estado = objVacante.getEstado();
                 if (objVacante.getEstado().equals("ACTIVA")){
                     estado = "INACTIVA";
                 } else {
                     estado = "ACTIVA";
                 }
-            }
-            estado = objVacante.getEstado();
+            }else {estado = objVacante.getEstado();}
+
             String tecnologia = JOptionPane.showInputDialog(null,"Modifica la tecnologia necesaria para esta vacante",objVacante.getTecnologia());
 
             objVacante.setIdEmpresa(idEmpresa);
@@ -132,16 +133,29 @@ public class VacanteController {
 
     }
 
-    public static void buscarVacantes(){
+    public static void buscarVacantesPorTitulo(){
 
         VacanteModel objModel = new VacanteModel();
 
         String tituloBuscar = JOptionPane.showInputDialog("Escriba el Titulo de la Vacante para mostrar las Vacantes Disponibles");
 
-        if (objModel.buscarVacantes(tituloBuscar).isEmpty()){
+        if (objModel.buscarVacantesPorTitulo(tituloBuscar).isEmpty()){
             JOptionPane.showMessageDialog(null,"No Hay ninguna Vacante por este titulo");
         } else {
-            JOptionPane.showMessageDialog(null,objModel.buscarVacantes(tituloBuscar).toString());
+            JOptionPane.showMessageDialog(null,objModel.buscarVacantesPorTitulo(tituloBuscar).toString());
+        }
+    }
+
+    public static void buscarVacantesPorTecnologia(){
+
+        VacanteModel objModel = new VacanteModel();
+
+        String tituloBuscar = JOptionPane.showInputDialog("Escriba la Tecnologia de la Vacante para mostrar las Vacantes Disponibles");
+
+        if (objModel.buscarVacantesPorTecnologia(tituloBuscar).isEmpty()){
+            JOptionPane.showMessageDialog(null,"No Hay ninguna Vacante con esta tecnologia");
+        } else {
+            JOptionPane.showMessageDialog(null,objModel.buscarVacantesPorTecnologia(tituloBuscar).toString());
         }
     }
 

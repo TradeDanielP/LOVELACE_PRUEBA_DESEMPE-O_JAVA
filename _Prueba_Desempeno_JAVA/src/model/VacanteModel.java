@@ -194,7 +194,7 @@ public class VacanteModel implements CRUD {
         return objVacante;
     }
 
-    public ArrayList<Object> buscarVacantes(String buscarTitulo){
+    public ArrayList<Object> buscarVacantesPorTitulo(String buscarTitulo){
 
         List<Object> listVacantes = findAll();
 
@@ -202,7 +202,22 @@ public class VacanteModel implements CRUD {
 
         for (Object vacante : listVacantes){
             Vacante vacanteFound = (Vacante) vacante;
-            if (vacanteFound.getTitulo().equalsIgnoreCase(buscarTitulo)){
+            if (vacanteFound.getTitulo().contains(buscarTitulo)){
+                vacantesFound.add(vacanteFound);
+            }
+        }
+        return vacantesFound;
+    }
+
+    public ArrayList<Object> buscarVacantesPorTecnologia(String buscarTecnologia){
+
+        List<Object> listVacantes = findAll();
+
+        ArrayList<Object> vacantesFound = new ArrayList<>();
+
+        for (Object vacante : listVacantes){
+            Vacante vacanteFound = (Vacante) vacante;
+            if (vacanteFound.getTecnologia().contains(buscarTecnologia)){
                 vacantesFound.add(vacanteFound);
             }
         }

@@ -89,6 +89,6 @@ public class Vacante {
                 "Descripcion = " + descripcion + '\n' +
                 "Duracion = " + duracion + '\n' +
                 "Estado = " + estado + '\n' +
-                "Tecnologia = " + tecnologia + '}';
+                "Tecnologia = " + tecnologia + '}' + '\n';
     }
 }

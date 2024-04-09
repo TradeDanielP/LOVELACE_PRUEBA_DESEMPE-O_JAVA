@@ -64,6 +64,6 @@ public class Empresa {
                 "Nombre = " + nombre + '\n' +
                 "Sector = " + sector + '\n' +
                 "Ubicacion = " + ubicacion + '\n' +
-                "Contacto = " + contacto + '}';
+                "Contacto = " + contacto + '}' + '\n';
     }
 }

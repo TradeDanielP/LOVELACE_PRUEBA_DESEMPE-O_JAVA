@@ -79,6 +79,6 @@ public class Contratacion {
                 "idCoder = " + idCoder + '\n' +
                 "Fecha aplicacion = " + fecha_aplicacion + '\n' +
                 "Estado = " + estado + '\n' +
-                "Salario = " + salario + '}';
+                "Salario = " + salario + '}' + '\n';
     }
 }

@@ -90,6 +90,6 @@ public class Coder {
                 "Documento = " + documento + '\n' +
                 "Cohorte = " + cohorte + '\n' +
                 "CV = " + cv + '\n' +
-                "Clan = " + clan + '}';
+                "Clan = " + clan + '}' + '\n';
     }
 }
